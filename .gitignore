@@ -1,0 +1,24 @@
+# Ignore build directories
+build/
+
+# Ignore user-specific CMake files
+*.user
+
+# Ignore Qt Creator files
+*.pro.user
+*.pro.user.*
+
+# Ignore temporary and backup files
+*.bak
+*.swp
+*~
+
+# Ignore object files and libraries
+*.o
+*.a
+*.so
+
+# Ignore executables
+*.exe
+*.out
+*.app
