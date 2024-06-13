@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-868a1480ebea07af9712.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "hangman",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "hangman::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hangman-Debug-6d9df1c269788981e425.json",
+					"name" : "hangman",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hangman_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hangman_autogen-Debug-9c633995f24a66097ef1.json",
+					"name" : "hangman_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hangman_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hangman_autogen_timestamp_deps-Debug-c380afd9049abba57b51.json",
+					"name" : "hangman_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/leaho/OneDrive/Dokumente/hangman/build/Desktop_Qt_6_7_1_llvm_mingw_64_bit-Debug",
+		"source" : "C:/Users/leaho/OneDrive/Dokumente/hangman"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
