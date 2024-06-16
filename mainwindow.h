@@ -16,6 +16,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void drawHangman();
+
+private slots:
+    void hideInfo();
+    void rateBtnClicked();
+    void onTextChanged(const QString &text);
 
 private:
     Ui::MainWindow *ui;

@@ -5,7 +5,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    MainWindow gui;
+    gui.show();
     return a.exec();
 }
+
+//game round
+//player
+//game
