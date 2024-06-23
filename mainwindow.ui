@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="BtnGuess">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>360</x>
@@ -40,7 +43,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Richtig/Falsch</string>
+     <string>Hangman</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelOutputWord">
@@ -86,6 +89,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="textGuessLetter">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -185,6 +191,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <property name="text">
      <string>Okay</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BtnReset">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>220</y>
+      <width>161</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nochmal spielen</string>
     </property>
    </widget>
   </widget>

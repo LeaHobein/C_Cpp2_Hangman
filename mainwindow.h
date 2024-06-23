@@ -22,6 +22,7 @@ private slots:
     void hideInfo();
     void rateBtnClicked();
     void onTextChanged(const QString &text);
+    void reset();
 
 private:
     Ui::MainWindow *ui;

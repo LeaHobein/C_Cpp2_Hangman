@@ -15,6 +15,8 @@ public:
     int getScore();
     bool checkGameOver();
     std::string getSecretWord();
+    int readHighscore();
+    std::string getUsername();
 
 private:
     void readFile();

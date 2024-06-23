@@ -28,10 +28,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
 
 
-        model/gameboard.h model/gameboard.cpp
+
         model/gameround.h model/gameround.cpp
         model/player.h model/player.cpp
-        model/gametools.h model/gametools.cpp
+        model/person.h
+        model/person.h model/person.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET hangman APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

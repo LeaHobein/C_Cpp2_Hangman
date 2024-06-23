@@ -5,6 +5,9 @@
 #include <QGraphicsView>
 #include <QGraphicsLineItem>
 
+//ANF1-4 Originalität der Idee, Interaktion über eine Grafische Benutzeroberfläche, Qualität der GUI, Erstellung eigener Klassen
+//ANF6 Modularisierung: Die Funktionen/Klassen sind sinnvoll in Header- und Code-Dateien aufgeteilt.
+
 GameController gc;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,9 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->BtnInfo, &QPushButton::clicked, this, &MainWindow::hideInfo);
     connect(ui->BtnGuess, &QPushButton::clicked, this, &MainWindow::rateBtnClicked);
     connect(ui->textGuessLetter, &QLineEdit::textChanged, this, &MainWindow::onTextChanged);
+    connect(ui->BtnReset, &QPushButton::clicked, this, &MainWindow::reset);
 
-    gc.newGame(); //TODO datei laden, wort aussuchen, string mit unterstrichen füllen (outputWord)
-    ui->labelOutputWord->setText(QString::fromStdString(gc.getOutputWord())); // Update Output Word in der GUI
+    reset();//start new game
 }
 
 MainWindow::~MainWindow()
@@ -35,35 +38,62 @@ void MainWindow::hideInfo()
 {
     ui->TxtInfo->hide();
     ui->BtnInfo->hide();
+    ui->BtnGuess->setEnabled(true);
+    ui->textGuessLetter->setEnabled(true);
+    ui->textGuessLetter->setFocus();
 }
 
 void MainWindow::rateBtnClicked()
 {
-    std::string guessedLetter = ui->textGuessLetter->text().toStdString();
-    qDebug() << "Letter: " + guessedLetter;
-    bool foundLetter = gc.evaluateLetter(guessedLetter);
-    if (foundLetter)
+    if(ui->textGuessLetter->text().isEmpty())
     {
-        ui->labelOutputWord->setText(QString::fromStdString(gc.getOutputWord())); // Update Output Word in der GUI
-        ui->labelRvF->setText("Richtig! " + QString::fromStdString(guessedLetter) + " ist im Wort enthalten!");
+        qDebug() << "kein Buchstabe eingegeben";
     }
     else
     {
-        ui->labelRvF->setText("Falsch! " + QString::fromStdString(guessedLetter) + " ist im Wort nicht enthalten!");
-        drawHangman();
-    }
+        std::string guessedLetter = ui->textGuessLetter->text().toStdString();
+        qDebug() << "Letter: " + guessedLetter;
+        bool foundLetter = gc.evaluateLetter(guessedLetter);
+        if (foundLetter)
+        {
+            ui->labelOutputWord->setText(QString::fromStdString(gc.getOutputWord())); // Update Output Word in der GUI
+            ui->labelRvF->setText("Richtig! " + QString::fromStdString(guessedLetter) + " ist im Wort enthalten!");
+        }
+        else
+        {
+            ui->labelRvF->setText("Falsch! " + QString::fromStdString(guessedLetter) + " ist im Wort nicht enthalten!");
+            drawHangman();
+        }
 
+        ui->labelTries->setText("Übrige Versuche: " + QString::number(gc.getScore()));
+        ui->textGuessLetter->clear(); //textfeld leeren
+
+        if(gc.checkWordComplete())
+        {
+            qDebug() << "Fertig ";
+            ui->labelRvF->setText("Du hast gewonnen! Dein aktueller Highscore ist: " + QString::number(gc.readHighscore()));
+            ui->textGuessLetter->setEnabled(false);
+            ui->BtnGuess->setEnabled(false);
+            ui->BtnReset->show();
+        }
+        if(gc.checkGameOver())
+        {
+            ui->labelRvF->setText("Du hast verloren. :( Das Wort war: " + QString::fromStdString(gc.getSecretWord()));
+            ui->BtnReset->show();
+        }
+    }
+    ui->textGuessLetter->setFocus();
+}
+void MainWindow::reset()
+{
+    gc.newGame();
+    ui->labelOutputWord->setText(QString::fromStdString(gc.getOutputWord())); // Update Output Word in der GUI
+    ui->BtnReset->hide();
     ui->labelTries->setText("Übrige Versuche: " + QString::number(gc.getScore()));
-
-    if(gc.checkWordComplete())
-    {
-        qDebug() << "Fertig ";
-        ui->labelRvF->setText("Du hast gewonnen!");
-    }
-    if(gc.checkGameOver())
-    {
-        ui->labelRvF->setText("Du hast verloren. :( Das Wort war: " + QString::fromStdString(gc.getSecretWord()));
-    }
+    ui->labelRvF->setText("Hangman - Hallo " + QString::fromStdString(gc.getUsername()) + "! Dein Highscore: " + QString::number(gc.readHighscore()));
+    ui->TxtInfo->show();
+    ui->BtnInfo->show();
+    drawHangman();
 }
 
 void MainWindow::drawHangman()
@@ -76,6 +106,9 @@ void MainWindow::drawHangman()
         view->setScene(scene);
     }
     switch (gc.getScore()) {
+    case 10:
+        scene->clear();
+        break;
     case 9:
         scene->addLine(80.0, 260.0, 310.0, 260.0);
         break;
@@ -105,6 +138,9 @@ void MainWindow::drawHangman()
         break;
     case 0:
         scene->addLine(230.0, 170.0, 260.0, 200.0);
+        ui->textGuessLetter->setEnabled(false);
+        ui->textGuessLetter->clear();
+        ui->BtnGuess->setEnabled(false);
         break;
     default:
         qDebug() << "Invalid";
